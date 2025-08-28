@@ -1,0 +1,15 @@
+# common
+.DS_Store
+.env
+*.env
+node_modules
+dist
+build
+
+# client (vite/cra)
+client/node_modules
+client/dist
+client/build
+
+# server
+server/node_modules
