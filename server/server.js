@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const http = require('http')
 const cors = require("cors");
-const http = require("http");
 const cookieParser = require("cookie-parser");
 require('dotenv').config({ path: __dirname + '/.env' })
 const connectDB = require('./config/db')
