@@ -24,8 +24,9 @@ const ChatPage = ({isMobile}) => {
   useEffect(() => {
     if (!user?.email) return;
 
-    socketRef.current = io("http://localhost:5000", {
+    socketRef.current = io(import.meta.env.VITE_BACKEND_URL, {
       withCredentials: true,
+      transports: ["websocket"]
     });
 
     if (user?.email && socketRef.current) {

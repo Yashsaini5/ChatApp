@@ -11,7 +11,7 @@
     "server": "nodemon ./server/server.js",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
-  "dependencies": {
-    "concurrently": "^9.2.0"
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   }
 }

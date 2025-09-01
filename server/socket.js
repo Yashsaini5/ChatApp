@@ -5,11 +5,14 @@ const cookie = require("cookie")
 const jwt = require("jsonwebtoken")
 
 const socketSetup = (server) => {
+  const allowedOrigins = process.env.CORS_ORIGINS?.split(",") || ["http://localhost:5173"]
   const io = socketIo(server, {
     cors: {
-      origin: "http://localhost:5173",
+      origin: allowedOrigins,
+      methods: ["GET", "POST"],
       credentials: true,
     },
+    transports:["websocket", "polling"]
   });
 
 io.use((socket, next) => {
