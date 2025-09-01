@@ -59,6 +59,7 @@ const markAsDelivered = async (userEmail) => {
   const users = {};
 
   io.on("connection", (socket) => {
+    console.log("Socket connected:", socket.id, socket.user?.email);
     socket.on("register_user", async (email) => {
       users[email] = socket.id;
       socket.email = email
