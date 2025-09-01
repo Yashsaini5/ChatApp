@@ -90,7 +90,7 @@ const ChatPage = ({isMobile}) => {
     return () => {
       socketRef.current.disconnect();
     };
-  }, []);
+  }, [user]);
 
   return (
     <div className="bg-zinc-400 h-full w-full overflow-hidden">
