@@ -9,13 +9,19 @@ const socketSetup = require("./socket")
 
 const server = http.createServer(app);
 
-const allowedOrigins = process.env.CORS_ORIGINS || ["http://localhost:5173"];
-app.use(cors({ origin: allowedOrigins, credentials: true }));
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Allow-Origin", allowedOrigins);
-  next();
-});
+const allowedOrigins = process.env.CORS_ORIGINS.split(",");
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // allow requests with no origin (e.g. mobile apps, curl)
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true, // allow cookies
+  })
+);
 app.use(cookieParser());
 app.use(express.json());
 connectDB()

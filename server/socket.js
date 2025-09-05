@@ -5,15 +5,22 @@ const cookie = require("cookie")
 const jwt = require("jsonwebtoken")
 
 const socketSetup = (server) => {
-  const allowedOrigins = process.env.CORS_ORIGINS?.split(",") || ["http://localhost:5173"]
-  const io = socketIo(server, {
-    cors: {
-      origin: allowedOrigins,
-      methods: ["GET", "POST"],
-      credentials: true,
+
+const allowedOrigins = process.env.CORS_ORIGINS.split(",");
+const io = socketIo(server, {
+  cors: {
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
     },
-    transports:["websocket", "polling"]
-  });
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+  transports: ["websocket", "polling"],
+});
 
 io.use((socket, next) => {
 
