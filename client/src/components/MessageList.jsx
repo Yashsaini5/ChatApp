@@ -104,19 +104,16 @@ const MessageList = ({
   }, [selectedUser]);
 
   //intial and newMessage scroll
-  useEffect(() => {
-    if (!isNewMessage) return;
-    if (allMessages.length === 0) return;
-    const scrollToBottom = () => {
-      if (messageEndRef.current) {
-        messageEndRef.current.scrollIntoView({ behavior: "auto" });
-        setIsNewMessage(false);
-      }
-    };
+ useEffect(() => {
+  if (!isNewMessage || !allMessages.length) return;
 
-    // Wait for DOM to update
-    requestAnimationFrame(scrollToBottom);
-  }, [allMessages, isNewMessage]);
+  const container = messageContainerRef.current;
+  if (!container) return;
+
+  // Scroll to the absolute bottom
+  container.scrollTop = container.scrollHeight;
+  // setIsNewMessage(false);
+}, [allMessages, isNewMessage]);
 
   //scroll for Older messages
   useEffect(() => {
@@ -124,6 +121,7 @@ const MessageList = ({
     if (!container) return;
 
     const handleScroll = () => {
+        setIsNewMessage(false);
       if (container.scrollTop === 0 && hasMore) loadOlderMessages();
     };
 
@@ -231,31 +229,32 @@ const MessageList = ({
                       isSender ? "bg-green-800" : "bg-zinc-600"
                     } mx-3 mt-2 min-h-10 h-fit w-fit max-w-[50%] rounded-xl break-words items-end`}
                   >
-                   <div className="flex flex-col">
-  <span className="text-base font-normal px-3 pt-1 break-words">
-    {msg.content}
-  </span>
-  {isSender && (
-    <div className="flex justify-end px-2 pb-1">
-      <span className="text-xs text-gray-300 flex items-center gap-1">
-        {msg.status === "read" ? (
-          <span className="text-blue-400 tracking-tighter">✓✓</span>
-        ) : msg.status === "delivered" ? (
-          "✓✓"
-        ) : (
-          "✓"
-        )}
-        <span>
-          {new Date(msg.createdAt).toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          })}
-        </span>
-      </span>
-    </div>
-  )}
-</div>
-
+                    <div className="flex flex-col">
+                      <span className="text-base font-normal px-3 pt-1 break-words">
+                        {msg.content}
+                      </span>
+                      {isSender && (
+                        <div className="flex justify-end px-2 pb-1">
+                          <span className="text-xs text-gray-300 flex items-center gap-1">
+                            {msg.status === "read" ? (
+                              <span className="text-blue-400 tracking-tighter">
+                                ✓✓
+                              </span>
+                            ) : msg.status === "delivered" ? (
+                              "✓✓"
+                            ) : (
+                              "✓"
+                            )}
+                            <span>
+                              {new Date(msg.createdAt).toLocaleTimeString([], {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              })}
+                            </span>
+                          </span>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>

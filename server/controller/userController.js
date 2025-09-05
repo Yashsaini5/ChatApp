@@ -30,7 +30,6 @@ const createUser = async (req, res) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production", // only true in production
     sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-    domain: "https://chatapp-pkj7.onrender.com",
   });
   res.status(200).json({
     _id: createUser._id,
@@ -69,7 +68,6 @@ const loginUser = async (req, res) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production", // only true in production
     sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-    domain: "https://chatapp-pkj7.onrender.com",
   });
   res.status(200).json({
     _id: existingUser._id,
