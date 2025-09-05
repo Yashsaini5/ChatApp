@@ -24,7 +24,7 @@ const ChatPage = ({isMobile}) => {
   useEffect(() => {
     if (!user?.email) return;
 
-    socketRef.current = io(import.meta.env.VITE_BACKEND_URL, {
+    socketRef.current = io("https://chatapp-pkj7.onrender.com", {
       withCredentials: true,
       transports: ["websocket"]
     });
