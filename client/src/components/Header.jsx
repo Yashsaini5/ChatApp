@@ -10,19 +10,19 @@ const Header = () => {
 
   const handleLogout = async() => {
    try {
-    await fetch(url + "/logout", {
+    const response = await fetch(url + "/user/logout", {
       method: "POST",
       credentials: "include",
     });
-   } catch (err) {
-    console.log("Logout failed", err)
-   }
-   
+    if(response.ok){
     setUser(null);
     setSelectedUser({
     name: "",
     email: ""
-  })
+  })}
+   } catch (err) {
+    console.log("Logout failed", err)
+   }
   };
   return (
     <div className="flex flex-col items-center">
