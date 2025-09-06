@@ -5,7 +5,7 @@ const { createUser , loginUser, logoutUser, getUser, getAllUser} = require('../c
 
 router.post("/signup",createUser)
 router.post("/login",loginUser)
-router.get("/logout",authMiddleware, logoutUser)
+router.post("/logout",authMiddleware, logoutUser)
 router.get("/getUser",authMiddleware, getUser)
 router.get("/getAllUser",authMiddleware, getAllUser)
 
