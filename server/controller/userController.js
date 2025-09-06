@@ -77,6 +77,15 @@ const loginUser = async (req, res) => {
   });
 };
 
+const logoutUser = async (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: true, 
+    sameSite: "none",
+  })
+  return res.json({message: "logged out successfully"})
+}
+
 const getUser = async (req, res) => {
   res.status(200).json({
     _id: req.user._id,
@@ -97,4 +106,4 @@ const getAllUser = async (req, res) => {
   }
 };
 
-module.exports = { createUser, loginUser, getUser, getAllUser };
+module.exports = { createUser, loginUser, logoutUser, getUser, getAllUser };

@@ -2,13 +2,22 @@ import React, { useState } from "react";
 import LoginSignup from "./LoginSignup";
 import ProfilePic from "./ProfilePic";
 import { useData } from "../context/DataContext";
+const url = import.meta.env.VITE_BACKEND_URL;
 
 const Header = () => {
   const {user, setUser, setSelectedUser} = useData()
   const [buttonClicked, setButtonClicked] = useState("");
 
-  const handleLogout = () => {
-    document.cookie = "token=; max-age=";
+  const handleLogout = async() => {
+   try {
+    await fetch(url + "/logout", {
+      method: "POST",
+      credentials: "include",
+    });
+   } catch (err) {
+    console.log("Logout failed", err)
+   }
+   
     setUser(null);
     setSelectedUser({
     name: "",
