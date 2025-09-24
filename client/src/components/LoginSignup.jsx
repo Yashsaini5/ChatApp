@@ -7,6 +7,7 @@ const LoginSignup = ({ buttonClicked,setButtonClicked, setUser }) => {
   const [field, setField] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState({});
+  const [Submit, setSubmit] = useState(false)
 
   const formField =
     buttonClicked == "Login"
@@ -45,6 +46,8 @@ const LoginSignup = ({ buttonClicked,setButtonClicked, setUser }) => {
     if (!validator()) return;
 
     try {
+      setSubmit(true);
+
       const response = await fetch(apiUrl , {
         method: "POST",
         headers: {
@@ -64,6 +67,8 @@ const LoginSignup = ({ buttonClicked,setButtonClicked, setUser }) => {
       else if (response.status === 400 )toast.error(result.message)
     } catch (error) {
       console.log(error);
+    } finally {
+      setSubmit(false)
     }
   };
 
@@ -91,7 +96,7 @@ const LoginSignup = ({ buttonClicked,setButtonClicked, setUser }) => {
         />
         {field.type === "password" && (
           <div
-            className="-mt-7 w-full text-right cursor-pointer pr-2"
+            className="-mt-8 w-full text-right cursor-pointer pr-2"
             onClick={() => setShowPassword((prev) => !prev)}
           >
             {showPassword ? (
@@ -108,12 +113,12 @@ const LoginSignup = ({ buttonClicked,setButtonClicked, setUser }) => {
         )}
       </div>
     ))}
-    <div
+    <button
       className="h-12 w-28 bg-zinc-700 rounded-3xl flex justify-center items-center text-white font-semibold shadow-gray-950 shadow-sm cursor-pointer hover:bg-zinc-800"
-      onClick={(e) => handleSubmit(e)}
+      onClick={(e) => handleSubmit(e)} disabled={Submit}
     >
-      Submit
-    </div>
+      {Submit ? "Submiting...": "Submit"}
+    </button>
   </div>
 </div>
 
