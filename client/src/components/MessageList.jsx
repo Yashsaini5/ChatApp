@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import ProfilePic from "./ProfilePic";
+import SkeletonLoader from "./SkeletonLoader"
 import { useData } from "../context/DataContext";
 const url = import.meta.env.VITE_BACKEND_URL;
 
@@ -11,6 +12,7 @@ const MessageList = ({
   setIsNewMessage,
 }) => {
   const { user, selectedUser, setLastMessages } = useData();
+  const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const messageEndRef = useRef(null);
@@ -21,6 +23,7 @@ const MessageList = ({
     if (!user || !selectedUser) return;
 
     const fetchMessages = async () => {
+      setLoading(true)
       try {
         const res = await fetch(
           url + `/message/chat?receiver=${selectedUser.email}&limit=30`,
@@ -31,9 +34,11 @@ const MessageList = ({
             setAllMessages(data?.reverse());
             setPage(1);
             setHasMore(data.length === 30);
+            setLoading(false); 
           });
       } catch (error) {
         console.error("Error fetching messages:", error);
+        setLoading(false);
       }
     };
 
@@ -199,7 +204,15 @@ const MessageList = ({
   className="h-[72.3vh] bg-gradient-to-b from-gray-700 via-gray-800 to-gray-900 overflow-y-auto px-3 py-3 flex flex-col space-y-2"
   ref={messageContainerRef}
 >
-  {Object.keys(groupedMessages).map((day) => (
+
+  {loading ? (
+    <div className="flex flex-col mt-auto space-y-2">
+    {[...Array(6)].map((_,i) => (
+      <SkeletonLoader key={i} isSender={i % 2 === 0} />
+    ))}
+    </div>
+  ) : (
+  Object.keys(groupedMessages).map((day) => (
     <div key={day}>
       <div className="flex justify-center">
         <div className="text-center py-1 px-3 mt-3 rounded-2xl bg-gray-700 text-white text-sm shadow-sm">
@@ -253,7 +266,7 @@ const MessageList = ({
         );
       })}
     </div>
-  ))}
+  )))}
   <div ref={messageEndRef} />
 </div>
 
