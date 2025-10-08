@@ -26,47 +26,48 @@ const Home = () => {
   }, []);
   return (
     <>
-      <div className="bg-gray-700 h-screen w-screen flex flex-col">
-        <Header />
-        <div className="w-screen flex-1 flex ">
-          {user ? (
-            <div className="flex w-screen">
-              {!isMobile ? (
-                <>
-                  <div className="flex-1 w-[30%]">
-                    <UserListPage />
-                  </div>
-                  <div className="h-full flex flex-col w-[70%]">
-                    <ChatPage />
-                  </div>
-                </>
-              ) : (
-                <>
-                  {selectedUser && selectedUser.email !== "" ? (
-                    <div className="h-full flex flex-col w-full">
-                      <ChatPage isMobile={isMobile}/>
-                    </div>
-                  ): (
-                    <div className="flex-1 w-full">
-                      <UserListPage />
-                    </div>
-                  )}
-                </>
-              )}
+    <div className="bg-gray-900 min-h-screen w-screen flex flex-col">
+  <Header />
+  <div className="w-full flex-1 flex">
+    {user ? (
+      <div className="flex w-full">
+        {!isMobile ? (
+          <>
+            <div className="flex-1 w-[30%] border-r border-gray-700 shadow-md bg-gray-800">
+              <UserListPage />
             </div>
-          ) : (
-            <div className="w-full bg-zinc-800 flex flex-col justify-center items-center text-white gap-4">
-              <p className="text-4xl font-bold">Chat App</p>
-              <p className="text-2xl font-medium text-center p-10">
-                Please Login or Signup to continue using app...
-              </p>
-              <p className="text-red-500 text-xl font-medium -mt-2">
-                Login / Signup Required!
-              </p>
+            <div className="h-full flex flex-col w-[70%] bg-gray-900 shadow-inner">
+              <ChatPage />
             </div>
-          )}
-        </div>
+          </>
+        ) : (
+          <>
+            {selectedUser && selectedUser.email !== "" ? (
+              <div className="h-full flex flex-col w-full bg-gray-900 shadow-inner">
+                <ChatPage isMobile={isMobile} />
+              </div>
+            ) : (
+              <div className="flex-1 w-full bg-gray-800 shadow-md">
+                <UserListPage />
+              </div>
+            )}
+          </>
+        )}
       </div>
+    ) : (
+      <div className="w-full flex flex-col justify-center items-center text-white gap-6 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 p-10 rounded-lg shadow-lg m-4">
+        <p className="text-5xl font-extrabold tracking-wide">Chat App</p>
+        <p className="text-2xl text-center font-medium px-6">
+          Please Login or Signup to continue using the app...
+        </p>
+        <p className="text-red-500 text-xl font-semibold animate-pulse">
+          Login / Signup Required!
+        </p>
+      </div>
+    )}
+  </div>
+</div>
+
     </>
   );
 };

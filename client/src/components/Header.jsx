@@ -25,53 +25,52 @@ const Header = () => {
    }
   };
   return (
-    <div className="flex flex-col items-center">
-      <div className="bg-black w-screen h-16 flex items-center justify-between px-6">
-        <h1 className="font-bold text-2xl text-white">Chat App</h1>
-        {user ? (
-          <div className="flex gap-5">
-          <ProfilePic user={user.name} size={"small"}/>
-          <div
-            className="h-9 flex items-center justify-center bg-gray-800 rounded-2xl w-20 z-20 text-white font-medium hover:bg-gray-900 cursor-pointer"
-            onClick={() => handleLogout()}
-          >
-            Logout
-          </div>
-          </div>
-        ) : (
-          <div className="flex gap-6">
-            <div
-              className="h-9 flex items-center justify-center bg-gray-800 rounded-2xl w-20 z-20 text-white font-medium hover:bg-gray-900 cursor-pointer"
-              onClick={() => setButtonClicked("Login")}
-            >
-              Login
-            </div>
-            <div
-              className="h-9 flex items-center justify-center bg-gray-800 rounded-2xl w-20 z-20 text-white font-medium hover:bg-gray-900 cursor-pointer"
-              onClick={() => setButtonClicked("Signup")}
-            >
-              Signup
-            </div>
-          </div>
-        )}
-      </div>
-      {buttonClicked ? (
+   <div className="flex flex-col items-center w-full">
+  <div className="bg-gray-900 w-full h-16 flex items-center justify-between px-6 shadow-lg">
+    <h1 className="font-extrabold text-2xl text-white tracking-tight">Chat App</h1>
+    {user ? (
+      <div className="flex items-center gap-4">
+        <ProfilePic user={user.name} size={"small"} />
         <div
-          className="h-screen w-screen absolute"
-          onClick={() => setButtonClicked("")}
+          className="h-10 flex items-center justify-center bg-red-600 rounded-xl px-4 text-white font-medium hover:bg-red-700 transition-colors cursor-pointer shadow"
+          onClick={() => handleLogout()}
         >
-          <div onClick={(e) => e.stopPropagation()}>
-            <LoginSignup
-              buttonClicked={buttonClicked}
-              setButtonClicked={setButtonClicked}
-              setUser={setUser}
-            />
-          </div>
+          Logout
         </div>
-      ) : (
-        ""
-      )}
+      </div>
+    ) : (
+      <div className="flex gap-4">
+        <div
+          className="h-10 flex items-center justify-center bg-gray-800 rounded-xl px-4 text-white font-medium hover:bg-gray-700 transition-colors cursor-pointer shadow"
+          onClick={() => setButtonClicked("Login")}
+        >
+          Login
+        </div>
+        <div
+          className="h-10 flex items-center justify-center bg-gray-800 rounded-xl px-4 text-white font-medium hover:bg-gray-700 transition-colors cursor-pointer shadow"
+          onClick={() => setButtonClicked("Signup")}
+        >
+          Signup
+        </div>
+      </div>
+    )}
+  </div>
+
+  {buttonClicked && (
+    <div
+      className="h-screen w-screen fixed top-0 left-0 bg-black/50 flex justify-center items-center z-50"
+      onClick={() => setButtonClicked("")}
+    >
+      <div onClick={(e) => e.stopPropagation()} className="bg-gray-900 p-6 rounded-xl shadow-xl">
+        <LoginSignup
+          buttonClicked={buttonClicked}
+          setButtonClicked={setButtonClicked}
+          setUser={setUser}
+        />
+      </div>
     </div>
+  )}
+</div>
   );
 };
 
