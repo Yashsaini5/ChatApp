@@ -73,52 +73,83 @@ const LoginSignup = ({ buttonClicked,setButtonClicked, setUser }) => {
   };
 
   return (
-   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-  <div className="h-[70vh] w-[90vw] sm:w-[70vw] md:w-[60vw] bg-zinc-500 flex flex-col justify-center items-center gap-6 p-4 rounded-xl">
-    <p className="font-bold text-2xl sm:text-3xl">{buttonClicked} Form</p>
-    {formField.map((field) => (
-      <div key={field.name} className="w-full max-w-md">
-        <label className="font-semibold text-lg sm:text-xl block pb-2">
-          {field.name}:
-        </label>
-        <input
-          type={
-            field.type === "password"
-              ? showPassword
-                ? "text"
-                : "password"
-              : field.type
-          }
-          placeholder={field.placeholder}
-          name={field.name}
-          className="rounded-lg px-3 h-10 w-full focus:outline-none"
-          onChange={(e) => handleInputChange(e)}
-        />
-        {field.type === "password" && (
-          <div
-            className="-mt-8 w-full text-right cursor-pointer pr-2"
-            onClick={() => setShowPassword((prev) => !prev)}
-          >
-            {showPassword ? (
-              <i className="ri-eye-off-fill"></i>
-            ) : (
-              <i className="ri-eye-fill"></i>
+   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-3">
+  <div
+    className="min-h-[55vh] sm:min-h-[75vh] md:min-h-[80vh] 
+    w-[90vw] sm:w-[80vw] md:w-[55vw] mx-auto
+    bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 
+    border border-zinc-700 shadow-2xl shadow-black/50 rounded-2xl 
+    flex flex-col justify-between items-center 
+    p-5 sm:p-8 text-white transition-all duration-300"
+  >
+    {/* Header */}
+    <div className="w-full text-center mt-2">
+      <p className="font-extrabold text-2xl sm:text-3xl md:text-4xl tracking-wide text-white/90">
+        {buttonClicked} Form
+      </p>
+      <div className="w-20 sm:w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mx-auto mt-2"></div>
+    </div>
+
+    {/* Form Fields */}
+    <div className="flex flex-col justify-center items-center gap-4 sm:gap-6 w-full flex-1">
+      {formField.map((field) => (
+        <div key={field.name} className="w-full max-w-md">
+          <label className="font-semibold text-sm sm:text-base md:text-lg text-zinc-300 block pb-2">
+            {field.name}
+          </label>
+          <div className="relative">
+            <input
+              type={
+                field.type === "password"
+                  ? showPassword
+                    ? "text"
+                    : "password"
+                  : field.type
+              }
+              placeholder={field.placeholder}
+              name={field.name}
+              className="rounded-xl px-4 h-10 sm:h-11 w-full bg-zinc-800 text-white/90 
+                placeholder:text-zinc-500 border border-zinc-700 focus:border-blue-500 
+                focus:ring-2 focus:ring-blue-600 outline-none transition-all duration-200 text-sm sm:text-base"
+              onChange={(e) => handleInputChange(e)}
+            />
+
+            {field.type === "password" && (
+              <div
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 cursor-pointer hover:text-white transition"
+                onClick={() => setShowPassword((prev) => !prev)}
+              >
+                {showPassword ? (
+                  <i className="ri-eye-off-fill"></i>
+                ) : (
+                  <i className="ri-eye-fill"></i>
+                )}
+              </div>
             )}
           </div>
-        )}
-        {error[field.name] && (
-          <div className="text-red-300 px-1 mt-1 text-sm font-semibold">
-            {error[field.name]}
-          </div>
-        )}
-      </div>
-    ))}
-    <button
-      className="h-12 w-28 bg-zinc-700 rounded-3xl flex justify-center items-center text-white font-semibold shadow-gray-950 shadow-sm cursor-pointer hover:bg-zinc-800"
-      onClick={(e) => handleSubmit(e)} disabled={Submit}
-    >
-      {Submit ? "Submiting...": "Submit"}
-    </button>
+
+          {error[field.name] && (
+            <div className="text-red-400 px-1 mt-1 text-sm font-semibold">
+              {error[field.name]}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+
+    {/* Footer / Button */}
+    <div className="w-full flex justify-center mb-3 sm:mb-4">
+      <button
+        className="h-10 sm:h-12 w-32 sm:w-40 bg-gradient-to-r from-blue-600 to-purple-700 rounded-full 
+          flex justify-center items-center text-white font-semibold sm:font-bold tracking-wide 
+          shadow-lg shadow-blue-900/40 hover:shadow-blue-700/50 hover:scale-[1.02] 
+          transition-all duration-200 disabled:opacity-60 text-sm sm:text-base"
+        onClick={(e) => handleSubmit(e)}
+        disabled={Submit}
+      >
+        {Submit ? "Submitting..." : "Submit"}
+      </button>
+    </div>
   </div>
 </div>
 

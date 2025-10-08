@@ -57,7 +57,7 @@ const Home = () => {
           ) : (
             <div className="w-full bg-zinc-800 flex flex-col justify-center items-center text-white gap-4">
               <p className="text-4xl font-bold">Chat App</p>
-              <p className="text-2xl font-medium text-center">
+              <p className="text-2xl font-medium text-center p-10">
                 Please Login or Signup to continue using app...
               </p>
               <p className="text-red-500 text-xl font-medium -mt-2">
