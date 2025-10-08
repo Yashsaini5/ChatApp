@@ -93,18 +93,25 @@ const ChatPage = ({isMobile}) => {
   }, [user]);
 
   return (
-    <div className="bg-zinc-400 h-full w-full overflow-hidden">
-      {selectedUser.name ? (
-        <ChatBox socket={socketRef.current} connectedUsers={connectedUsers} isMobile={isMobile} allMessages={allMessages} setAllMessages={setAllMessages}/>
-      ) : (
-        <div className="h-full w-full flex flex-col justify-center items-center text-zinc-900 ">
-          <p className="text-4xl font-bold">Chat App</p>
-          <p className="text-2xl font-medium">
-            Click any user to start chating...
-          </p>
-        </div>
-      )}
+   <div className="bg-gray-800 h-full w-full overflow-hidden flex flex-col">
+  {selectedUser.name ? (
+    <ChatBox
+      socket={socketRef.current}
+      connectedUsers={connectedUsers}
+      isMobile={isMobile}
+      allMessages={allMessages}
+      setAllMessages={setAllMessages}
+    />
+  ) : (
+    <div className="h-full w-full flex flex-col justify-center items-center text-gray-200">
+      <p className="text-5xl font-extrabold">Chat App</p>
+      <p className="text-2xl font-medium mt-2">
+        Click any user to start chatting...
+      </p>
     </div>
+  )}
+</div>
+
   );
 };
 

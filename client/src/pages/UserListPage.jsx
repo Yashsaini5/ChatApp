@@ -23,12 +23,15 @@ const UserListPage = () => {
   },[])
 
   return (
-    <div className='bg-zinc-500 h-full w-full shadow-md border-r-2 border-zinc-900 flex flex-col'>
-      <div>
-        <div className='h-16 bg-zinc-800 text-xl font-semibold flex items-center text-white px-4'>Users List -</div>
-       <UserList />
+   <div className='bg-gray-800 h-full w-full shadow-lg border-r border-gray-700 flex flex-col'>
+  <div>
+    <div className='h-16 bg-gray-800 text-xl font-bold flex items-center text-white px-4 shadow-md'>
+      Users List
     </div>
-    </div>
+    <UserList />
+  </div>
+</div>
+
   )
 }
 

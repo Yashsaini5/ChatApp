@@ -32,22 +32,23 @@ const ChatInput = ({ socket, setIsNewMessage }) => {
   };
 
   return (
-    <div className="h-16 bg-zinc-800 flex items-center">
-      <input
-        type="text"
-        placeholder="Type your message..."
-        className="h-[80%] w-5/6 px-3 mx-2 bg-zinc-700 rounded-full shadow-2xl placeholder:text-white text-white focus:outline-none"
-        value={message}
-        onChange={handleInputChange}
-        onKeyDown={(e) => e.key === "Enter" && sendMessage(e)}
-      />
-      <button
-        className="h-[80%] w-1/6 px-3 mx-2 bg-zinc-600 rounded-full text-white font-semibold text-xl flex items-center justify-center shadow-2xl hover:bg-zinc-700"
-        onClick={sendMessage}
-      >
-        ➤
-      </button>
-    </div>
+   <div className="h-16 bg-gray-800 flex items-center px-3 shadow-inner">
+  <input
+    type="text"
+    placeholder="Type your message..."
+    className="h-[80%] w-5/6 px-4 bg-gray-700 rounded-full shadow-md placeholder:text-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+    value={message}
+    onChange={handleInputChange}
+    onKeyDown={(e) => e.key === "Enter" && sendMessage(e)}
+  />
+  <button
+    className="h-[80%] w-1/6 ml-2 bg-blue-600 rounded-full text-white font-semibold text-xl flex items-center justify-center shadow-md hover:bg-blue-700 transition-colors"
+    onClick={sendMessage}
+  >
+    ➤
+  </button>
+</div>
+
   );
 };
 
