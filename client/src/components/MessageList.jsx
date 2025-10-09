@@ -76,7 +76,7 @@ const MessageList = ({
 
           setLastMessages((prev) =>
             prev.map((conv) =>
-              conv?.userInfo?.email === selectedUser.email
+              conv?.userInfo?.email === user.email
                 ? {
                     ...conv,
                     lastMessage: {
