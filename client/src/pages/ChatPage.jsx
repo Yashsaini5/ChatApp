@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import ChatBox from "../components/ChatBox";
+import ChatBox from "../components/ChatComponents/ChatBox";
 import io from "socket.io-client";
 import { useData } from "../context/DataContext";
 

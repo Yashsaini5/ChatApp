@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useData } from "../context/DataContext";
-import ProfilePic from "./ProfilePic";
+import { useData } from "../../context/DataContext";
 import ChatHeader from "./ChatHeader";
 import MessageList from "./MessageList";
 import ChatInput from "./ChatInput";

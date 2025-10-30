@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import UserList from '../components/UserList'
+import UserList from '../components/UsersComponets/UserList'
 import { useData } from '../context/DataContext';
 const url = import.meta.env.VITE_BACKEND_URL;
 
 const UserListPage = () => {
-  const { setSelectedUser, usersList, setUsersList} = useData()
+  const { setUsersList} = useData()
 
   useEffect(()=> {
     const getAllUser = async () => {

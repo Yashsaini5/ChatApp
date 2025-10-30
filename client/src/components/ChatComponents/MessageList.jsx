@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
-import ProfilePic from "./ProfilePic";
+import ProfilePic from "../UsersComponets/ProfilePic";
 import SkeletonLoader from "./SkeletonLoader"
-import { useData } from "../context/DataContext";
+import { useData } from "../../context/DataContext";
 const url = import.meta.env.VITE_BACKEND_URL;
 
 const MessageList = ({

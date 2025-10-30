@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import Header from "../components/Header";
+import Header from "../components/UsersComponets/Header";
 import ChatPage from "./ChatPage";
 import UserListPage from "./UserListPage";
 import { useData } from "../context/DataContext";
 const url = import.meta.env.VITE_BACKEND_URL;
 
 const Home = () => {
-  const { user, setUser, selectedUser, setSelectedUser } = useData();
+  const { user, setUser, selectedUser } = useData();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 500);
 
   useEffect(() => {

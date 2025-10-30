@@ -1,5 +1,5 @@
 import React, {useState, useRef } from "react";
-import { useData } from "../context/DataContext";
+import { useData } from "../../context/DataContext";
 
 const ChatInput = ({ socket, setIsNewMessage }) => {
   const [message, setMessage] = useState([]);

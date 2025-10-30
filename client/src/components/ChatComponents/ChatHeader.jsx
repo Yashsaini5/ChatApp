@@ -1,6 +1,6 @@
 import React from "react";
-import ProfilePic from "./ProfilePic";
-import { useData } from "../context/DataContext";
+import ProfilePic from "../UsersComponets/ProfilePic";
+import { useData } from "../../context/DataContext";
 
 const ChatHeader = ({ connectedUsers, isMobile }) => {
   const { selectedUser, setSelectedUser, typingStatus } = useData();

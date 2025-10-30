@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import LoginSignup from "./LoginSignup";
 import ProfilePic from "./ProfilePic";
-import { useData } from "../context/DataContext";
+import { useData } from "../../context/DataContext";
 const url = import.meta.env.VITE_BACKEND_URL;
 
 const Header = () => {
