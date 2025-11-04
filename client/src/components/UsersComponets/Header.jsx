@@ -20,6 +20,7 @@ const Header = () => {
     name: "",
     email: ""
   })}
+  // socket.disconnect();
    } catch (err) {
     console.log("Logout failed", err)
    }

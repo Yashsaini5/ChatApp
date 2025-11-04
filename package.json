@@ -13,5 +13,9 @@
   },
   "devDependencies": {
     "concurrently": "^9.2.1"
+  },
+  "dependencies": {
+    "react-icons": "^5.5.0",
+    "react-router-dom": "^7.9.5"
   }
 }

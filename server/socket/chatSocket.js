@@ -1,42 +1,7 @@
-const socketIo = require("socket.io");
-const Message = require('./models/messageModel')
-const User = require("./models/userModel")
-const cookie = require("cookie")
-const jwt = require("jsonwebtoken")
+const Message = require('../models/messageModel')
+const User = require("../models/userModel")
 
-const socketSetup = (server) => {
-
-const allowedOrigins = process.env.CORS_ORIGINS.split(",");
-const io = socketIo(server, {
-  cors: {
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    methods: ["GET", "POST"],
-    credentials: true,
-  },
-  transports: ["websocket", "polling"],
-});
-
-io.use((socket, next) => {
-
-  const cookies = cookie.parse(socket.handshake.headers.cookie || "")
-  const token = cookies.token
-
-  if(!token) return next(new Error("Authentication error"))
-
-try {
-  const decoded = jwt.verify(token, process.env.SECRET_KEY)
-  socket.user = decoded
-  next();
-} catch (error) {
-  next(new Error("invalid token"))
-}
-  }) 
+const users = {};
 
 const markAsDelivered = async (userEmail) => {
   const user = await User.findOne({email: userEmail})
@@ -63,11 +28,9 @@ const markAsDelivered = async (userEmail) => {
   })
 }
 
-  const users = {};
+module.exports = (io, socket) => {
 
-  io.on("connection", (socket) => {
-    console.log("Socket connected:", socket.id, socket.user?.email);
-    socket.on("register_user", async (email) => {
+     socket.on("register_user", async (email) => {
       users[email] = socket.id;
       socket.email = email
       // console.log("Updated users map:", users);
@@ -77,7 +40,7 @@ const markAsDelivered = async (userEmail) => {
       io.emit("online_users", users)
     });
 
-    socket.on("send_message", async (data) => {
+     socket.on("send_message", async (data) => {
       const { sender, receiver, message } = data;
 
         const senderUser = await User.findOne({email: sender})
@@ -155,6 +118,7 @@ const markAsDelivered = async (userEmail) => {
       }
     });
 
+     
     socket.on("disconnect", () => {
       const email = socket.email; 
       if(email && users[email] === socket.id){
@@ -164,7 +128,4 @@ const markAsDelivered = async (userEmail) => {
       // console.log(`user ${email} with socket ID ${socket.id} disconnected`)
     
     });
-  });
-};
-
-module.exports = socketSetup;
+}

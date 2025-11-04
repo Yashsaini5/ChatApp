@@ -5,7 +5,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 require('dotenv').config({ path: __dirname + '/.env' })
 const connectDB = require('./config/db')
-const socketSetup = require("./socket")
+const socketSetup = require("./socket/index")
 
 const server = http.createServer(app);
 

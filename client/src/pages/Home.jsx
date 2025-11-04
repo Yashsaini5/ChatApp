@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Header from "../components/UsersComponets/Header";
 import ChatPage from "./ChatPage";
 import UserListPage from "./UserListPage";
@@ -6,7 +7,8 @@ import { useData } from "../context/DataContext";
 const url = import.meta.env.VITE_BACKEND_URL;
 
 const Home = () => {
-  const { user, setUser, selectedUser } = useData();
+  const { DirectChatId } = useParams();
+  const { user, setUser, selectedUser, setSelectedUser } = useData();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 500);
 
   useEffect(() => {
@@ -24,6 +26,42 @@ const Home = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+      const fetchSelectedUser = async (id) => {
+        try {
+          const res = await fetch(url + `/user/getDirectChat/${id}`, {
+            credentials: "include",
+          });
+          const data = await res.json();
+          if (res.ok) {
+            setSelectedUser({
+              _id: data._id,
+              name: data.name,
+              email: data.email,
+            });
+            localStorage.setItem("lastChatUser", JSON.stringify({
+              _id: data._id,
+              name: data.name,
+              email: data.email,
+            }));
+          }
+        } catch (error) {
+          console.error("Error fetching selected user:", error);
+        }
+      };
+
+      if (DirectChatId) {
+      fetchSelectedUser(DirectChatId);
+      } else {
+        const lastChatUser = localStorage.getItem("lastChatUser");
+        if (lastChatUser) {
+          setSelectedUser(JSON.parse(lastChatUser));
+        }
+      }
+    
+    }, [DirectChatId])
+    
   return (
     <>
     <div className="bg-gray-900 min-h-screen w-screen flex flex-col">

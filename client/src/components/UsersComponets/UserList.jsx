@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import ProfilePic from "./ProfilePic";
 import { useData } from "../../context/DataContext";
+import { useNavigate } from "react-router-dom";
 const url = import.meta.env.VITE_BACKEND_URL;
 
 const UserList = () => {
@@ -13,6 +14,7 @@ const UserList = () => {
     setLastMessages,
     lastMessageFunc,
   } = useData();
+  const navigate = useNavigate();
 
   useEffect(() => {
     lastMessageFunc();
@@ -45,9 +47,15 @@ const UserList = () => {
       <div
         key={otherUser._id}
         className="h-16 flex items-center px-4 gap-3 border-b border-gray-700 bg-gray-700 text-white hover:bg-gray-600 cursor-pointer transition-colors"
-        onClick={() =>
-          setSelectedUser({ name: otherUser.name, email: otherUser.email })
-        }
+        onClick={() => {
+          setSelectedUser({ _id: otherUser._id, name: otherUser.name, email: otherUser.email })
+          localStorage.setItem("lastChatUser", JSON.stringify({
+            _id: otherUser._id,
+            name: otherUser.name,
+            email: otherUser.email,
+          }));
+          navigate(`/DirectChat/${otherUser._id}`);
+        }}
       >
         <ProfilePic user={otherUser.name} />
         <div className="flex-1 min-w-0">
